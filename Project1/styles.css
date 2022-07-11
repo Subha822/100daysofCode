@@ -1,0 +1,279 @@
+:root {
+  --penguin-face: white;
+  --penguin-picorna: orange;
+}
+
+body {
+  background: linear-gradient(
+    45deg,
+    rgb(118, 201, 255),
+    rgb(247, 255, 222)
+  ); /* background color is 45deg, from color 1 to color 2 */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: clip; /* removes scrollbars on horizontal and vertical */
+}
+
+.ground {
+  width: 100vw;
+  height: calc(100vh - 300px); /* 100 viewport height, minus 300px */
+  background: linear-gradient(90deg, rgb(88, 175, 236), rgb(182, 255, 255));
+  position: absolute; /* When an absolute positon doesn't have position properties set, it will move as normal */
+  margin-top: -58px;
+  z-index: 3; /* Third on the z-index stack */
+}
+
+.penguin {
+  width: 300px;
+  height: 300px;
+  margin: 75px auto auto auto; /* center it horizontally */
+  position: relative;
+  z-index: 4;
+  transition-duration: 1s; /* transition behaviour rules, into activate; Duration 1s */
+  transition-timing-function: ease-in-out; /* timining of animation curve; slow start and end */
+  transition-delay: 0ms; /* no delay */
+}
+
+.penguin * {
+  position: absolute;
+}
+
+.penguin-head {
+  height: 45%;
+  width: 50%;
+  background: linear-gradient(45deg, gray, rgb(239, 240, 228));
+  border-radius: 70% 70% 65% 65%;
+  top: 10%; /* 10% away, relative to its parent, not the whole page */
+  left: 25%;
+  z-index: 1;
+}
+
+.face {
+  width: 60%;
+  height: 70%;
+  background-color: var(--penguin-face);
+  border-radius: 70% 70% 60% 60%;
+  top: 15%;
+}
+
+.face.left {
+  /* target the class that has face left */
+  left: 5%;
+}
+
+.face.right {
+  right: 5%;
+}
+
+.chin {
+  width: 90%;
+  height: 70%;
+  background-color: var(--penguin-face);
+  top: 25%;
+  left: 5%;
+  border-radius: 70% 70% 100% 100%;
+}
+
+.eye {
+  width: 15%;
+  height: 17%;
+  background-color: black;
+  top: 45%;
+  border-radius: 50%;
+}
+
+.eye.left {
+  left: 25%;
+}
+
+.eye.right {
+  right: 25%;
+}
+
+.eye-lid {
+  background-color: var(--penguin-face);
+  width: 150%;
+  height: 100%;
+  top: 25%;
+  left: -23%;
+  border-radius: 50%;
+}
+
+.blush {
+  background-color: pink;
+  width: 15%;
+  height: 10%;
+  top: 65%;
+  border-radius: 50%;
+}
+
+.blush.left {
+  left: 15%;
+}
+
+.blush.right {
+  right: 15%;
+}
+
+.beak {
+  height: 10%;
+  background-color: orange;
+  border-radius: 50%;
+}
+
+.beak.top {
+  width: 20%;
+  top: 60%;
+  left: 40%;
+}
+
+.beak.bottom {
+  width: 16%;
+  top: 65%;
+  left: 42%;
+}
+
+.shirt {
+  font: bold 25px Helvetica, sans-serif; /* weight size family */
+  top: 165px;
+  left: 127.5px;
+  z-index: 1;
+  color: #6a6969;
+}
+
+.shirt div {
+  font-weight: normal;
+  top: 22.5px;
+  left: 12px;
+}
+
+.penguin-body {
+  width: 53%;
+  height: 45%;
+  background: linear-gradient(
+    45deg,
+    /* tild 45 deg */ rgb(134, 133, 133) 0%,
+    /* from 0%, stop at 25% */ rgb(234, 231, 231) 25%,
+    /* from 25%, stop at 67% */ white 67% /* from 67%, stop at 100% */
+  );
+  border-radius: 80% 80% 100% 100%;
+  top: 40%; /* relative to its parent, no the page */
+  left: 23.5%;
+}
+
+.penguin-body::before {
+  /* input content before the element's content: E.g. ello into hello */
+  content: ""; /* empty content, just adding a new container */
+  position: absolute; /* remember, aboslute position elements are positioned relative to their parent */
+  width: 50%;
+  height: 45%;
+  background-color: gray;
+  top: 10%; /* relative to its parent */
+  left: 25%;
+  border-radius: 0% 0% 100% 100%; /* starts at top left corner */
+  opacity: 70%; /* Transparecy / opacity */
+}
+
+.penguin:active {
+  /* when user click on it/active it */
+  transform: scale(
+    1.5
+  ); /* scale of X and Y x 1.5 (it will even out, not loose aspect ratio */
+  cursor: not-allowed; /* An active element's cursor insuate you can drag it, but you can't. To avoid confusion, remove cursor change */
+}
+
+.arm {
+  width: 30%;
+  height: 60%;
+  background: linear-gradient(90deg, gray, rgb(209, 210, 199));
+  border-radius: 30% 30% 30% 120%;
+  z-index: -1;
+}
+
+.arm.left {
+  top: 35%;
+  left: 5%;
+  transform-origin: top left; /* changes the pivot/rotation point: Defualt is center center; it rotates the element on its same posiont; but there is also top left, top center, top right, center left, bottom left, bottom right, etc */
+  transform: rotate(130deg) scaleX(-1); /* X scales the elements. Negative values will invert its axis, flipping the image */
+  animation-name: wave; /* linking it to the @keyframe ruleset */
+  animation-duration: 3s; /* rule on duration */
+  animation-iteration-count: infinite; /* rule on iteration */
+  animation-timing-function: linear; /* speed curve of the animation; same speed start to end */
+}
+
+@keyframes wave {
+  /* Element animation code: gradual rules, in terms of percetages */
+  10% {
+    transform: rotate(110deg) scaleX(-1);
+  }
+  20% {
+    transform: rotate(130deg) scaleX(-1);
+  }
+  30% {
+    transform: rotate(110deg) scaleX(-1);
+  }
+  40% {
+    transform: rotate(130deg) scaleX(-1);
+  }
+}
+
+.arm.right {
+  top: 0%;
+  right: -5%;
+  transform: rotate(-45deg);
+}
+
+.foot {
+  width: 15%;
+  height: 30%;
+  background-color: orange;
+  border-radius: 50%;
+  top: 85%; /*relative to its parent container */
+  z-index: -1;
+}
+
+.foot.left {
+  left: 25%;
+  transform: rotate(80deg);
+}
+
+.foot.right {
+  right: 25%;
+  transform: rotate(-80deg);
+}
+
+.left-mountain {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(rgb(203, 241, 228), rgb(80, 183, 255));
+  position: absolute;
+  margin-top: 100px;
+  transform: skew(
+    0deg,
+    44deg
+  ); /* skew trasnverse: pulling corner, (X axis, Y axis) */
+  z-index: 2; /* level 2, behing ground at 3 */
+}
+
+.back-mountain {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(rgb(203, 241, 228), rgb(47, 170, 255));
+  position: absolute;
+  z-index: 1;
+  transform: rotate(45deg); /* rotates item, as is */
+  left: 110px;
+  top: 225px;
+}
+
+.sun {
+  width: 200px;
+  height: 200px;
+  background-color: yellow;
+  position: absolute;
+  border-radius: 50%;
+  top: -75px;
+  right: -75px;
+}
